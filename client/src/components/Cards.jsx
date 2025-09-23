@@ -21,8 +21,8 @@ const Cards = ({ car }) => {
   return (
     <div
       onClick={handleClick}
-      className="overflow-hidden rounded-2xl bg-gradient-to-br from-gray-100 to-gray-200 
-      shadow-md transition-all duration-300 hover:shadow-xl hover:-translate-y-1 cursor-pointer group"
+      className="overflow-hidden rounded-2xl bg-gradient-to-br from-gray-900 to-gray-800 
+      shadow-md transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/20 hover:-translate-y-1 cursor-pointer group"
     >
       {/* Car Image Section */}
       <div className="relative h-48 w-full overflow-hidden">
@@ -52,18 +52,18 @@ const Cards = ({ car }) => {
       </div>
 
       {/* Car Details Section */}
-      <div className="p-4 border-t border-gray-200">
-        <h3 className="text-xl font-bold text-gray-900">
+      <div className="p-4 border-t border-gray-700">
+        <h3 className="text-xl font-bold text-white">
           {car.brand || "Unknown"} {car.model || "Car"}
         </h3>
-        <p className="text-sm text-gray-600 mt-0.5">
+        <p className="text-sm text-gray-400 mt-0.5">
           {car.category || "Unknown"} · {car.year || "N/A"}
         </p>
 
         {/* Car Specs Grid */}
-        <div className="grid grid-cols-2 gap-y-3 mt-4 text-sm text-gray-700">
+        <div className="grid grid-cols-2 gap-y-3 mt-4 text-sm text-gray-300">
           <div className="flex items-center space-x-2">
-            <div className="p-2 rounded-full bg-blue-100">
+            <div className="p-2 rounded-full bg-blue-900/30">
               <img
                 src={assets.users_icon}
                 alt="Seats"
@@ -73,7 +73,7 @@ const Cards = ({ car }) => {
             <span>{car.seating_capacity || "N/A"} Seats</span>
           </div>
           <div className="flex items-center space-x-2">
-            <div className="p-2 rounded-full bg-green-100">
+            <div className="p-2 rounded-full bg-green-900/30">
               <img
                 src={assets.fuel_icon}
                 alt="Fuel"
@@ -83,7 +83,7 @@ const Cards = ({ car }) => {
             <span>{car.fuel_type || "N/A"}</span>
           </div>
           <div className="flex items-center space-x-2">
-            <div className="p-2 rounded-full bg-purple-100">
+            <div className="p-2 rounded-full bg-purple-900/30">
               <img
                 src={assets.car_icon}
                 alt="Transmission"
@@ -93,7 +93,7 @@ const Cards = ({ car }) => {
             <span>{car.transmission || "N/A"}</span>
           </div>
           <div className="flex items-center space-x-2">
-            <div className="p-2 rounded-full bg-orange-100">
+            <div className="p-2 rounded-full bg-orange-900/30">
               <img
                 src={assets.location_icon}
                 alt="Location"

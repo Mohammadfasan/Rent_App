@@ -1,12 +1,41 @@
-import React from 'react'
+import React from "react";
+import { motion } from "framer-motion";
 
-const Title = ({ title, subtitle }) => {
+const Title = ({ title, subTitle, align = "center" }) => {
+  const alignment =
+    align === "left"
+      ? "items-start text-left"
+      : align === "right"
+      ? "items-end text-right"
+      : "items-center text-center";
+
   return (
-    <div>
-      <h1 className='font-medium text-3xl'>{title}</h1>
-      <p className='text-sm md:text-base text-gray-500/90 mt-2 max-w-2xl'>{subtitle}</p>
-    </div>
-  )
-}
+    <motion.div
+      className={`flex flex-col justify-center ${alignment} gap-3`}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+    >
+      {/* Title */}
+      <h1
+        className="font-extrabold text-3xl md:text-5xl 
+        bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 
+        bg-clip-text text-transparent tracking-wide"
+      >
+        {title}
+      </h1>
 
-export default Title
+      {/* Accent underline */}
+      <div className="w-16 h-[3px] bg-gradient-to-r from-blue-500 to-purple-500 rounded-full" />
+
+      {/* Subtitle */}
+      {subTitle && (
+        <p className="text-sm md:text-lg text-gray-400 italic max-w-lg">
+          {subTitle}
+        </p>
+      )}
+    </motion.div>
+  );
+};
+
+export default Title;

@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 
 export const Testimonial = () => {
   const carRentals = [
@@ -34,61 +35,208 @@ export const Testimonial = () => {
     },
   ];
 
+  // Animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.3
+      }
+    }
+  };
+
+  const cardVariants = {
+    hidden: { 
+      opacity: 0, 
+      y: 50,
+      scale: 0.9
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut"
+      }
+    },
+    hover: {
+      y: -10,
+      scale: 1.02,
+      transition: {
+        duration: 0.3,
+        ease: "easeInOut"
+      }
+    }
+  };
+
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.8,
+        ease: "easeOut"
+      }
+    }
+  };
+
   return (
-    <section className="relative min-h-[350px] sm:min-h-[600px] md:min-h-[450px] lg:min-h-[500px] flex flex-col items-center justify-center 
-      px-4 py-1 sm:px-6 lg:px-8 bg-gray-50 overflow-hidden ">
+    <section className="relative flex flex-col items-center justify-center px-4 py-16 sm:px-6 lg:px-8 overflow-hidden">
       
-      {/* Background blobs */}
-      <div className="absolute inset-0 z-0">
-        <div className="absolute top-1/4 left-1/4 w-96 h-26 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-16 bg-blue-400 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000"></div>
-      </div>
-
-      
+      {/* Content */}
+      <div className="relative z-10 w-full max-w-7xl flex flex-col items-center">
         
-        {/* Heading Section */}
-        <div className="max-w-xl text-center mb-10">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2">
-            What Our Customers Say
+        {/* Heading Section with Animation */}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+          variants={fadeInUp}
+          className="max-w-xl text-center mb-12"
+        >
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2 text-white">
+            What Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Customers</span> Say
           </h2>
-          <p className="text-sm sm:text-base md:text-lg text-blue-100">
-            Discover why discerning travelers choose StayVenture for their luxury accommodations around the world.
+          <p className="text-sm sm:text-base md:text-lg text-gray-400">
+            Discover why discerning travelers choose Wheelify for their luxury car rentals around Sri Lanka.
           </p>
-        </div>
+        </motion.div>
 
-        {/* Testimonial Cards */}
-        <div className="flex flex-wrap items-center justify-center gap-6">
-          {carRentals.map((rental) => (
-            <div key={rental.id} className="text-sm w-80 pb-6 rounded-lg bg-white shadow-md overflow-hidden text-gray-800">
+        {/* Testimonial Cards with Staggered Animation */}
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          className="flex flex-wrap items-center justify-center gap-6"
+        >
+          {carRentals.map((rental, index) => (
+            <motion.div
+              key={rental.id}
+              variants={cardVariants}
+              whileHover="hover"
+              className="text-sm w-80 pb-6 rounded-lg bg-gray-900/80 backdrop-blur-md shadow-lg overflow-hidden text-gray-300 border border-gray-700/50 hover:shadow-blue-500/20 transition-all duration-300 cursor-pointer"
+            >
               
-              {/* User Info */}
-              <div className="flex items-center gap-4 px-5 py-4 bg-blue-100/20">
-                <img className="h-12 w-12 rounded-full" src={rental.userImage} alt={rental.userName} />
+              {/* User Info with Gradient Background */}
+              <motion.div 
+                whileHover={{ scale: 1.02 }}
+                className="flex items-center gap-4 px-5 py-4 bg-gradient-to-r from-blue-900/40 to-purple-900/40"
+              >
+                <motion.img 
+                  whileHover={{ rotate: 5, scale: 1.1 }}
+                  className="h-12 w-12 rounded-full border-2 border-white/20"
+                  src={rental.userImage} 
+                  alt={rental.userName}
+                />
                 <div>
-                  <h1 className="text-lg font-medium text-gray-800">{rental.userName}</h1>
-                  <p className="text-gray-800/80">{rental.userRole}</p>
+                  <motion.h1 
+                    whileHover={{ x: 5 }}
+                    className="text-lg font-medium text-white"
+                  >
+                    {rental.userName}
+                  </motion.h1>
+                  <motion.p 
+                    whileHover={{ x: 5 }}
+                    className="text-gray-300/80 text-sm"
+                  >
+                    {rental.userRole}
+                  </motion.p>
                 </div>
-              </div>
+              </motion.div>
 
               {/* Car & Review */}
-              <div className="p-5 pb-7">
-                <h2 className="text-gray-700 font-medium">{rental.carName}</h2>
-                <p className="text-gray-500 text-sm mb-2">Rental Period: {rental.rentalPeriod}</p>
-                <p className="text-gray-500">{rental.review}</p>
+              <motion.div 
+                className="p-5 pb-7"
+                whileHover={{ backgroundColor: 'rgba(17, 24, 39, 0.9)' }}
+                transition={{ duration: 0.3 }}
+              >
+                <motion.h2 
+                  whileHover={{ color: '#ffffff' }}
+                  className="text-gray-200 font-medium mb-1"
+                >
+                  {rental.carName}
+                </motion.h2>
+                <motion.p 
+                  whileHover={{ color: '#d1d5db' }}
+                  className="text-gray-400 text-sm mb-3"
+                >
+                  Rental Period: {rental.rentalPeriod}
+                </motion.p>
+                <motion.p 
+                  whileHover={{ color: '#e5e7eb' }}
+                  className="text-gray-400 leading-relaxed"
+                >
+                  {rental.review}
+                </motion.p>
 
-                {/* Rating */}
-                <div className="flex gap-0.5 mt-3">
+                {/* Animated Rating Stars */}
+                <motion.div 
+                  className="flex gap-0.5 mt-4"
+                  initial={{ opacity: 0, scale: 0 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: index * 0.1 + 0.5, duration: 0.5 }}
+                >
                   {Array(rental.rating).fill(0).map((_, i) => (
-                    <svg key={i} width="22" height="20" viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M10.525.464a.5.5 0 0 1 .95 0l2.107 6.482a.5.5 0 0 0 .475.346h6.817a.5.5 0 0 1 .294.904l-5.515 4.007a.5.5 0 0 0-.181.559l2.106 6.483a.5.5 0 0 1-.77.559l-5.514-4.007a.5.5 0 0 0-.588 0l-5.514 4.007a.5.5 0 0 1-.77-.56l2.106-6.482a.5.5 0 0 0-.181-.56L.832 8.197a.5.5 0 0 1 .294-.904h6.817a.5.5 0 0 0 .475-.346z" fill="#FF532E"/>
-                    </svg>
+                    <motion.svg 
+                      key={i}
+                      whileHover={{ scale: 1.3, rotate: 10 }}
+                      whileTap={{ scale: 0.9 }}
+                      width="22" 
+                      height="20" 
+                      viewBox="0 0 22 20" 
+                      fill="none" 
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path 
+                        d="M10.525.464a.5.5 0 0 1 .95 0l2.107 6.482a.5.5 0 0 0 .475.346h6.817a.5.5 0 0 1 .294.904l-5.515 4.007a.5.5 0 0 0-.181.559l2.106 6.483a.5.5 0 0 1-.77.559l-5.514-4.007a.5.5 0 0 0-.588 0l-5.514 4.007a.5.5 0 0 1-.77-.56l2.106-6.482a.5.5 0 0 0-.181-.56L.832 8.197a.5.5 0 0 1 .294-.904h6.817a.5.5 0 0 0 .475-.346z" 
+                        fill="#FFC107"
+                      />
+                    </motion.svg>
                   ))}
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+                </motion.div>
 
+                {/* Floating Elements */}
+                <motion.div
+                  className="absolute top-2 right-2 w-2 h-2 bg-blue-400 rounded-full"
+                  animate={{
+                    scale: [1, 1.5, 1],
+                    opacity: [0.7, 1, 0.7],
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    delay: index * 0.5
+                  }}
+                />
+              </motion.div>
+            </motion.div>
+          ))}
+        </motion.div>
+
+        {/* Animated CTA Button */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 1, duration: 0.6 }}
+          className="mt-12"
+        >
+          <motion.button
+            whileHover={{ 
+              scale: 1.05,
+              background: "linear-gradient(to right, #2563eb, #7c3aed)"
+            }}
+            whileTap={{ scale: 0.95 }}
+            className="px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-blue-500/30 transition-all duration-300"
+          >
+            Read More Reviews
+          </motion.button>
+        </motion.div>
+      </div>
     </section>
   );
 };

@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { assets, dummyDashboardData } from "../../assets/assets";
 import Title from "../../components/owner-dashboard/Title";
+import { useAppContext } from "../../context/AppContext";
 
 const Dashboard = () => {
+  const {axios,isOwner,currency}=useAppContext()
   const [data, setData] = useState({
     totalCars: 0,
     totalBookings: 0,
@@ -15,37 +17,50 @@ const Dashboard = () => {
   const DashboardCards = [
     {
       title: "Total Cars",
-      value: data.totalCars,
+      value: data?.totalCars || 0,
       icon: assets.carIconColored,
       bg: "bg-blue-50",
       text: "text-blue-600",
     },
     {
       title: "Total Booking",
-      value: data.totalBookings,
+      value: data?.totalBookings || 0,
       icon: assets.listIconColored,
       bg: "bg-green-50",
       text: "text-green-600",
     },
     {
       title: "Pending",
-      value: data.pendingBookings,
+      value: data?.pendingBookings || 0,
       icon: assets.cautionIconColored,
       bg: "bg-yellow-50",
       text: "text-yellow-600",
     },
     {
       title: "Confirmed",
-      value: data.completedBookings,
+      value: data?.completedBookings || 0,
       icon: assets.listIconColored,
       bg: "bg-purple-50",
       text: "text-purple-600",
     },
   ];
-
+ const fetchDashboardData= async()=>
+ {
+     try{
+      const {data}=await axios.get('api/owner/dashboard')
+      if(data.success)
+      {
+           setData(data.dashboardData || data.data || data)
+      }
+     }catch(error)
+     {
+        console.error("Error fetching dashboard data:", error);
+     }
+ }
   useEffect(() => {
-    setData(dummyDashboardData);
-  }, []);
+    if(isOwner)
+    fetchDashboardData()
+  }, [isOwner]);
 
   return (
     <div className="px-4 pt-10 md:px-10 flex-1">
@@ -53,17 +68,17 @@ const Dashboard = () => {
       <Title title="Admin Dashboard" subtitle="Welcome to your dashboard" />
 
       {/* Top Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8 ">
         {DashboardCards.map((card, index) => (
           <div
             key={index}
-            className={`${card.bg} rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 p-6 flex items-center gap-4 cursor-pointer`}
+            className={` rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 p-6 flex items-center gap-4 cursor-pointer bg-gray-800`}
           >
-            <div className={`p-3 rounded-xl ${card.text} bg-white shadow-md`}>
-              <img src={card.icon} alt={card.title} className="w-8 h-8" />
+            <div className={`p-3 rounded-xl ${card.text} bg-gray-700 shadow-md`}>
+              <img src={card.icon} alt={card.title} className="w-8 h-8 " />
             </div>
             <div>
-              <h3 className="text-sm font-medium text-gray-500">{card.title}</h3>
+              <h3 className="text-sm font-medium ">{card.title}</h3>
               <p className={`text-2xl font-bold ${card.text}`}>{card.value}</p>
             </div>
           </div>
@@ -71,19 +86,19 @@ const Dashboard = () => {
       </div>
 
       {/* Bottom Section */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-10">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-10  ">
         {/* Recent Bookings */}
-        <div className="bg-white shadow-lg hover:shadow-2xl transition-all duration-300 rounded-2xl p-6">
-          <h2 className="text-lg font-semibold text-gray-800">Recent Bookings</h2>
-          <p className="text-sm text-gray-500 mb-4">Latest customer activity</p>
+        <div className=" shadow-lg hover:shadow-2xl transition-all duration-300 rounded-2xl p-6 bg-gray-800 ">
+          <h2 className="text-lg font-semibold ">Recent Bookings</h2>
+          <p className="text-sm  mb-4">Latest customer activity</p>
 
-          {data.recentBookings.length > 0 ? (
+          {data?.recentBookings?.length > 0 ? (
             data.recentBookings.map((booking, index) => (
               <div
                 key={index}
-                className="flex items-center justify-between border-b border-gray-200 py-3 last:border-none rounded-lg hover:shadow-md transition-all duration-300 px-2"
+                className="flex items-center justify-between border-b  py-3 last:border-none rounded-lg hover:shadow-md transition-all duration-300 px-2"
               >
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-3 ">
                   <div className="hidden md:flex items-center justify-center w-12 h-12 rounded-full bg-primary/10 shadow-sm">
                     <img
                       src={assets.listIconColored}
@@ -91,16 +106,16 @@ const Dashboard = () => {
                       className="w-5 h-5"
                     />
                   </div>
-                  <div>
-                    <h3 className="text-sm font-medium text-gray-700">
-                      {booking.car.brand} {booking.car.model}
+                  <div >
+                    <h3 className="text-sm font-medium ">
+                      {booking.car?.brand} {booking.car?.model}
                     </h3>
-                    <p className="text-xs text-gray-400">
-                      {booking.createdAt.split("T")[0]}
+                    <p className="text-xs ">
+                      {booking.createdAt?.split("T")[0]}
                     </p>
                   </div>
                 </div>
-                <div className="text-right">
+                <div className="text-right ">
                   <p className="text-sm font-medium text-gray-700">
                     ${booking.price}
                   </p>
@@ -122,12 +137,12 @@ const Dashboard = () => {
         </div>
 
         {/* Monthly Revenue */}
-        <div className="bg-white shadow-lg hover:shadow-2xl transition-all duration-300 rounded-2xl p-3 flex flex-col justify-center items-center h-35 mb-10">
-          <h2 className="text-lg font-semibold text-gray-800 mb-4">
+        <div className=" shadow-lg hover:shadow-2xl transition-all duration-300 rounded-2xl p-3 flex flex-col justify-center items-center h-35 mb-10 bg-gray-800">
+          <h2 className="text-lg font-semibold  mb-4">
             Monthly Revenue
           </h2>
-          <p className="text-3xl font-bold text-green-600 shadow-sm px-3 py-1 rounded-lg bg-green-50">
-            ${data.monthlyRevenue}
+          <p className="text-3xl font-bold text-green-600 shadow-sm px-3 py-1 rounded-lg ">
+            ${data?.monthlyRevenue || 0}
           </p>
           <p className="text-sm text-gray-500 mt-1">
             Based on confirmed bookings

@@ -3,37 +3,32 @@ import React from "react";
 import Title from "./Title";
 import Cards from "./Cards";
 import { useNavigate } from "react-router-dom";
-import { dummyCarData, assets } from "../assets/assets";
+import { assets } from "../assets/assets";
+import { useAppContext } from "../context/AppContext";
 
 const FeatureSection = () => {
   const navigate = useNavigate();
+  const { cars } = useAppContext();
 
   return (
-    <section className="relative  px-6 md:px-16 lg:px-24 xl:px-32 flex flex-col items-center overflow-hidden bg-gray-50">
-      
-      {/* Background Blobs - Same as Hero */}
-      <div className="absolute inset-0 z-0">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-indigo-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000"></div>
-      </div>
-
-      {/* Content */}
-      <div className="relative z-10 w-full max-w-7xl flex flex-col items-center">
+    <section className="relative px-6 md:px-16 lg:px-24 xl:px-32 flex flex-col items-center overflow-hidden">
+      {/* Content - No background, will use Hero's background */}
+      <div className="relative z-10 w-full max-w-7xl flex flex-col items-center py-16">
         {/* Section Title */}
         <Title
-  title="Customer Testimonials"
-  subTitle="Hear from people who loved our service"
-  align="center"
-/>
+          title="Featured Luxury Cars"
+          subTitle="Explore our handpicked selection of premium vehicles, ready for your next adventure."
+          align="center"
+        />
+        
         {/* Car Cards */}
-<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-10 w-full">
-  {dummyCarData.slice(0, 3).map((car, index) => (
-    <div key={index}>
-      <Cards car={car} />
-    </div>
-  ))}
-</div>
-
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-10 w-full">
+          {cars.slice(0, 3).map((car, index) => (
+            <div key={index}>
+              <Cards car={car} />
+            </div>
+          ))}
+        </div>
 
         {/* Explore All Cars Button */}
         <button
