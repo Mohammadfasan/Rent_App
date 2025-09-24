@@ -1,6 +1,6 @@
 import imagekit from "../configs/imagekit.js";
 import User from "../models/Schema.js";
-import fs from 'fs';
+// import fs from 'fs'; // இந்த வரியை நீக்கவும்
 import Car from "../models/Car.js";
 import Booking from "../models/Booking.js";
 
@@ -36,9 +36,9 @@ export const listCar = async (req, res) => {
     const imageFile = req.file;
 
     // Upload image to Imagekit
-    const fileBuffer = fs.readFileSync(imageFile.path);
+    // fs.readFileSync() பதிலாக நேரடியாக imageFile.buffer-ஐ பயன்படுத்தவும்
     const response = await imagekit.upload({
-      file: fileBuffer,
+      file: imageFile.buffer,
       fileName: imageFile.originalname,
       folder: "/cars"
     });
@@ -59,9 +59,6 @@ export const listCar = async (req, res) => {
       image: optimizedImageURL
     });
 
-    // Clean up the uploaded file
-    fs.unlinkSync(imageFile.path);
-
     res.json({ success: true, message: "Car listed successfully", data: newCar });
   } catch (error) {
     console.log(error.message);
@@ -69,7 +66,7 @@ export const listCar = async (req, res) => {
   }
 };
 
-// API to List Owner Cars - FIXED: Added proper error handling
+// API to List Owner Cars
 export const ownerCars = async (req, res) => {
   try {
     const { _id } = req.user;
@@ -81,7 +78,7 @@ export const ownerCars = async (req, res) => {
   }
 };
 
-// API to Toggle Car Availability - FIXED: Better error handling
+// API to Toggle Car Availability
 export const toggleCarAvailability = async (req, res) => {
   try {
     const { _id } = req.user;
@@ -111,7 +108,7 @@ export const toggleCarAvailability = async (req, res) => {
   }
 };
 
-// Delete car - FIXED: Better error handling
+// Delete car
 export const deleteCar = async (req, res) => {
   try {
     const { _id } = req.user;
@@ -211,7 +208,8 @@ export const updateUserImage = async (req, res) => {
     const imageFile = req.file;
 
     // Upload image to Imagekit
-    const fileBuffer = fs.readFileSync(imageFile.path);
+    // fs.readFileSync() பதிலாக நேரடியாக imageFile.buffer-ஐ பயன்படுத்தவும்
+    const fileBuffer = imageFile.buffer;
     const response = await imagekit.upload({
       file: fileBuffer,
       fileName: imageFile.originalname,
@@ -229,9 +227,6 @@ export const updateUserImage = async (req, res) => {
     
     const image = optimizedImageURL;
     await User.findByIdAndUpdate(_id, { image });
-    
-    // Clean up the uploaded file
-    fs.unlinkSync(imageFile.path);
     
     res.json({ success: true, message: "Image updated successfully", image });
 
