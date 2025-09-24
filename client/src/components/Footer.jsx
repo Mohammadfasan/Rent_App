@@ -22,9 +22,9 @@ export const Footer = () => {
 
         <div className="relative z-10 flex flex-wrap items-center justify-center gap-8">
           <a href="#" className="font-medium hover:text-white transition-all">Home</a>
-          <a href="#" className="font-medium hover:text-white transition-all">Cars</a>
-          <a href="#" className="font-medium hover:text-white transition-all">MyBooking</a>
-          <a href="#" className="font-medium hover:text-white transition-all">Dasboad</a>
+          <a href="/cars" className="font-medium hover:text-white transition-all">Cars</a>
+          <a href="/bookings" className="font-medium hover:text-white transition-all">MyBooking</a>
+          <a href="/owner-dasboard" className="font-medium hover:text-white transition-all">Dasboad</a>
           <a href="#" className="font-medium hover:text-white transition-all">Help</a>
         </div>
         

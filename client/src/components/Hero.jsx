@@ -60,7 +60,7 @@ export default function Hero() {
             variants={container}
             initial="hidden"
             animate="visible"
-            className="text-4xl sm:text-5xl lg:text-6xl font-poppins font-extrabold text-center drop-shadow-xl"
+            className="text-4xl sm:text-5xl lg:text-6xl font-poppins font-extrabold text-center drop-shadow-xl mt-32"
           >
             {headingText.split(" ").map((word, wi) => (
               <span key={wi} className="mr-2">
@@ -71,7 +71,7 @@ export default function Hero() {
                     className={
                       word === "Dream" || word === "Ride"
                         ? "text-white font-extrabold"
-                        : "text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 font-extrabold"
+                        : "text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 font-extrabold "
                     }
                   >
                     {char}

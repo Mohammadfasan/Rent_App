@@ -7,7 +7,7 @@ import { toast } from 'react-hot-toast';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Navbar() {
-  const { showLogin, setShowLogin, user, isOwner, logout, setIsOwner } = useAppContext();
+  const {  setShowLogin, user, isOwner, logout, setIsOwner } = useAppContext();
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();

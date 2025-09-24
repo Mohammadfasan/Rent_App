@@ -19,7 +19,7 @@ import AddCar from "./pages/owner-dashboard/AddCar";
 import CarMange from "./pages/owner-dashboard/CarMange";
 
 function AppContent() {
-  const { showLogin, setShowLogin } = useAppContext();
+  const { showLogin} = useAppContext();
   const location = useLocation();
   const isOwnerPath = location.pathname.startsWith("/owner-dashboard");
 

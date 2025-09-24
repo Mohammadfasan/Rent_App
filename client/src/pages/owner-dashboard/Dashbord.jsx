@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { assets, dummyDashboardData } from "../../assets/assets";
+import { assets } from "../../assets/assets";
 import Title from "../../components/owner-dashboard/Title";
 import { useAppContext } from "../../context/AppContext";
 
 const Dashboard = () => {
-  const {axios,isOwner,currency}=useAppContext()
+  const {axios,isOwner}=useAppContext()
   const [data, setData] = useState({
     totalCars: 0,
     totalBookings: 0,
