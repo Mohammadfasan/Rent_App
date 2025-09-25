@@ -12,8 +12,7 @@ git clone https://github.com/Mohammadfasan/Rent_App.git
 cd Rent_App
 
 Youtube Link
-[![Watch the video](https://img.youtube.com/vi/J7zRPWx_8RQ/maxresdefault.jpg)](https://youtu.be/J7zRPWx_8RQ)
-
+https://youtu.be/J7zRPWx_8RQ
 
 
 FrontEnd
