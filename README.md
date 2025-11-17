@@ -1,4 +1,4 @@
-# 🚗 Car Rental System (MERN Stack)
+#  Car Rental System (MERN Stack)
 
 A full-stack, responsive Car Rental System designed to streamline vehicle management and booking processes for admins, car owners, and customers. Built with the modern MERN stack and featuring a clean, user-friendly interface.
 
@@ -12,21 +12,8 @@ A full-stack, responsive Car Rental System designed to streamline vehicle manage
 *   **GitHub Repository:** https://github.com/your-username/car-rental-system
 *   **Live Website:** *Coming soon on AWS...*
 
-## 📋 Table of Contents
 
-- [Features](#-features)
-- [User Roles](#-user-roles)
-- [Tech Stack](#-tech-stack)
-- [Screenshots](#-screenshots)
-- [Installation](#-installation)
-- [Environment Variables](#-environment-variables)
-- [Usage](#-usage)
-- [API Endpoints](#-api-endpoints)
-- [Future Enhancements](#-future-enhancements)
-- [Contributing](#-contributing)
-- [License](#-license)
-
-## ✨ Features
+##  Features
 
 ### 🏠 Home Screen
 Smooth and intuitive navigation across all system modules with featured cars and promotions.
